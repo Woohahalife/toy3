@@ -6,6 +6,7 @@ import com.core.toy3.src.trip.model.request.TripRequest;
 import com.core.toy3.src.trip.model.request.TripUpdateRequest;
 import com.core.toy3.src.trip.model.response.TripResponse;
 import com.core.toy3.src.trip.service.TripService;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +20,8 @@ public class TripController {
 
     private final TripService tripService;
 
-    @PostMapping("{travelId}/create") // 1
+    @PostMapping("{travelId}/create")
+    @Operation(description = "여정 데이터를 추가한다(여행 데이터를 활용해 사용자 일치 여부 판단)")
     public Response<TripResponse> createTrip(@PathVariable("travelId") Long id,
                                              @RequestBody TripRequest tripRequest,
                                              @AuthenticationPrincipal AuthMember authMember) {
@@ -27,14 +29,16 @@ public class TripController {
         return Response.response(tripService.createTrip(id, tripRequest, authMember));
     }
 
-    @GetMapping("{travelId}/read") // 1
+    @GetMapping("{travelId}/read")
+    @Operation(description = "선택한 여행에 해당하는 모든 여정 데이터를 조회한다")
     public Response<List<TripResponse>> getAllTripFromTravel(@PathVariable("travelId") Long id) {
         List<TripResponse> tripResponseList = tripService.getAllTripFromTravel(id);
 
         return Response.response(tripResponseList);
     }
 
-    @GetMapping("{travelId}/read/{tripId}")//
+    @GetMapping("{travelId}/read/{tripId}")
+    @Operation(description = "선택한 여행에 해당하는 단일 여정 데이터를 조회한다")
     public Response<TripResponse> getTrip(@PathVariable("travelId") Long travelId,
                                           @PathVariable("tripId") Long tripId) {
 
@@ -42,6 +46,7 @@ public class TripController {
     }
 
     @PutMapping("/{travelId}/trip-update/{tripId}")
+    @Operation(description = "단일 여정 데이터를 수정한다(사용자 검증 필요)")
     public Response<TripResponse> updateTrip(@PathVariable("tripId") Long tripId,
                                              @PathVariable("travelId") Long travelId,
                                              @RequestBody TripUpdateRequest request,
@@ -51,6 +56,10 @@ public class TripController {
     }
 
     @DeleteMapping("/{travelId}/trip-delete/{tripId}")
+    @Operation(description = """
+                            단일 여정 데이터를 삭제한다(사용자 검증 필요)
+                            데이터는 실제로 삭제되는 것이 아닌 ACTIVE -> DELETE상태로 변경한다.
+                            """)
     public Response<String> deleteTrip(@PathVariable("tripId") Long tripId,
                                        @PathVariable("travelId") Long travelId,
                                        @AuthenticationPrincipal AuthMember authMember) {

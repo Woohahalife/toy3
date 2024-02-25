@@ -1,6 +1,6 @@
 package com.core.toy3.src.travel.service;
 
-import com.core.toy3.common.KakaoMapLocation;
+import com.core.toy3.common.util.KakaoMapLocation;
 import com.core.toy3.common.constant.State;
 import com.core.toy3.common.exception.CustomException;
 import com.core.toy3.common.response.Response;
@@ -9,7 +9,6 @@ import com.core.toy3.src.travel.entity.Travel;
 import com.core.toy3.src.travel.model.request.TravelRequest;
 import com.core.toy3.src.travel.model.response.TravelResponse;
 import com.core.toy3.src.travel.repository.TravelRepository;
-import com.core.toy3.src.trip.model.request.TripRequest;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
@@ -84,6 +83,17 @@ public class TravelService {
     }
 
     @Transactional
+    public List<TravelResponse> getAllTravelLikes(AuthMember authMember) {
+
+        Long memberId = authMember.getId();
+        List<Travel> allTravelActiveAndMyLike = travelRepository.getAllTravelActiveAndMyLike(memberId);
+
+        return allTravelActiveAndMyLike.stream()
+                .map(TravelResponse::toResult)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
     public TravelResponse selectTravel(Long id) {
 
         Travel travel = travelRepository.getTravelActive(id)
@@ -151,11 +161,7 @@ public class TravelService {
 
     }
 
-    public Response<TravelResponse> getTravelDetails(Long id) {
-        return travelRepository.findById(id)
-                .map(travel -> Response.response(new TravelResponse(travel.getLikeCount())))
-                .orElse(null);
-    }
+
 
     // 게시물의 주인이 다른 경우 예외 발생(수정, 삭제)
     private void validateMatches(AuthMember member, Travel travel) {
@@ -189,4 +195,5 @@ public class TravelService {
         }
         return travelRequest;
     }
+
 }

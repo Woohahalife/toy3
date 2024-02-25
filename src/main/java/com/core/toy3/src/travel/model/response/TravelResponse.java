@@ -1,5 +1,6 @@
 package com.core.toy3.src.travel.model.response;
 
+import com.core.toy3.src.comment.model.response.CommentResponse;
 import com.core.toy3.src.member.entity.Member;
 import com.core.toy3.src.travel.entity.Travel;
 
@@ -18,13 +19,6 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class TravelResponse {
     private int likeCount;
-    public TravelResponse(int likeCount) {
-        this.likeCount = likeCount;
-    }
-
-    public static TravelResponse fromEntity(Travel travel, Member member) {
-        return null;
-    }
 
     private Long id;
     private String travelName;
@@ -34,6 +28,7 @@ public class TravelResponse {
     private LocalDateTime departureTime;
     private LocalDateTime arrivalTime;
     private List<TripResponse> trip;
+    private List<CommentResponse> comment;
 
     public static TravelResponse toResult(Travel travel) {
         return TravelResponse.builder()
@@ -49,6 +44,7 @@ public class TravelResponse {
                         .stream()
                         .map(TripResponse::toResult)
                         .collect(Collectors.toList()))
+                .comment(travel.getComment().stream().map(CommentResponse::fromEntity).collect(Collectors.toList()))
                 .build();
     }
 }

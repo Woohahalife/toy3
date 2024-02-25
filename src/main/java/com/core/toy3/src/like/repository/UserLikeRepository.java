@@ -14,4 +14,6 @@ public interface UserLikeRepository extends JpaRepository<UserLike, Long> {
     UserLike findByMember(Member member);
     UserLike findByTravel(Travel travel);
     List<UserLike> findAllByMember(Member member);
+
+    UserLike findByMemberAndTravel(Member member, Travel travel);
 }

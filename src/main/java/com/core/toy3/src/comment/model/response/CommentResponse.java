@@ -14,7 +14,6 @@ public class CommentResponse {
     private Long travelId;
     private String content;
 
-
     public static CommentResponse fromEntity(Comment comment){
         return CommentResponse.builder()
                 .id(comment.getId())
@@ -22,6 +21,5 @@ public class CommentResponse {
                 .travelId(comment.getTravel().getId())
                 .content(comment.getContent())
                 .build();
-
     }
 }

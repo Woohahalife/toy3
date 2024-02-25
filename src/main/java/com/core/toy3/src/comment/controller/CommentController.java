@@ -34,6 +34,7 @@ public class CommentController {
     }
 
     @PostMapping("/posts")
+    @Operation(description = "댓글 생성 API")
     public Response<CommentResponse> saveComment(
             @AuthenticationPrincipal AuthMember member,
             @RequestBody CommentRequest commentRequest
@@ -45,6 +46,7 @@ public class CommentController {
     }
 
     @GetMapping("/list")
+    @Operation(description = "특정 사용자가 남긴 댓글목록을 조회한다.")
     public List<CommentResponse> viewComments(
             @AuthenticationPrincipal AuthMember member){
 

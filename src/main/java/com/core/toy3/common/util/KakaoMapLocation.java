@@ -1,4 +1,4 @@
-package com.core.toy3.common;
+package com.core.toy3.common.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
@@ -85,6 +85,5 @@ public class KakaoMapLocation {
     } catch (Exception e){
       return null;
     }
-
   }
 }

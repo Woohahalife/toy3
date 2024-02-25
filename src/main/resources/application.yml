@@ -34,9 +34,10 @@ spring:
         use_sql_comments: false
         # 쿼리 포멧팅
         format_sql: true
+        default_batch_fetch_size: 1000
     open-in-view: false
 
 # kakao map api
 kakao:
   api-url: https://dapi.kakao.com/v2/local/search/address.json
-  api-key:
+  api-key: 4f403450685d85faea564f42eb536736

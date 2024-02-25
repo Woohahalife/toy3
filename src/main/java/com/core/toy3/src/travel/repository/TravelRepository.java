@@ -18,10 +18,22 @@ public interface TravelRepository extends JpaRepository<Travel, Long> {
             select tv
             from Travel tv
             left join fetch tv.trip t
-            where (t is null or t.state = 'ACTIVE')
+            where tv.state = 'ACTIVE'
+            and (t is null or t.state = 'ACTIVE')
             order by tv.id asc, t.postedAt asc
             """)
     List<Travel> getAllTravelActive();
+
+    @Query("""
+            select tv
+            from Travel tv
+            left join fetch tv.trip t
+            left join fetch tv.likes l
+            where tv.state = 'ACTIVE'
+            and (t is null or t.state = 'ACTIVE')
+            and l.member.id =:memberId
+            """)
+    List<Travel> getAllTravelActiveAndMyLike(@Param("memberId") Long id);
 
     @Query("""
             select tv

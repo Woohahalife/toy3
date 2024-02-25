@@ -28,6 +28,5 @@ public class UserLike {
         return UserLike.builder()
                 .travel(travel)
                 .build();
-
     }
 }

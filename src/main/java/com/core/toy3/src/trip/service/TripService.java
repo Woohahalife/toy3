@@ -1,11 +1,10 @@
 package com.core.toy3.src.trip.service;
 
-import com.core.toy3.common.KakaoMapLocation;
+import com.core.toy3.common.util.KakaoMapLocation;
 import com.core.toy3.common.constant.State;
 import com.core.toy3.common.exception.CustomException;
 import com.core.toy3.src.member.entity.AuthMember;
 import com.core.toy3.src.travel.entity.Travel;
-import com.core.toy3.src.travel.model.request.TravelRequest;
 import com.core.toy3.src.travel.repository.TravelRepository;
 import com.core.toy3.src.trip.entity.Trip;
 import com.core.toy3.src.trip.model.request.TripRequest;
@@ -18,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static com.core.toy3.common.response.ResponseStatus.*;
@@ -129,7 +129,7 @@ public class TripService {
     }
 
     private void validateMatches(AuthMember member, Travel travel) {
-        if(travel.getMember().getId() != member.getId()) {
+        if(!Objects.equals(travel.getMember().getId(), member.getId())) {
             throw new CustomException(HAS_NOT_PERMISSION_TO_ACCESS);
         }
     }
