@@ -20,11 +20,11 @@ import java.util.Collection;
 public abstract class BaseEntity {
 
     @CreatedDate
-    @Column(updatable = false , columnDefinition = "TIMESTAMP")
+    @Column(name = "create_at", updatable = false , columnDefinition = "TIMESTAMP")
     private LocalDateTime createAt;
 
     @CreatedDate
-    @Column(columnDefinition = "TIMESTAMP")
+    @Column(name = "update_at", columnDefinition = "TIMESTAMP")
     private LocalDateTime updateAt;
 
 }

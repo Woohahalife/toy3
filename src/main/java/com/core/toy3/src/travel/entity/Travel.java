@@ -28,6 +28,7 @@ public class Travel extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "travel_name")
     private String travelName;
 
     @Enumerated(EnumType.STRING)
@@ -36,7 +37,10 @@ public class Travel extends BaseEntity {
     private String departure;
     private String arrival;
 
+    @Column(name = "departure_time")
     private LocalDateTime departureTime;
+
+    @Column(name = "arrival_time")
     private LocalDateTime arrivalTime;
 
     @Builder.Default
@@ -53,7 +57,7 @@ public class Travel extends BaseEntity {
 
     @Builder.Default
     @OneToMany(mappedBy = "travel")
-    private Set<UserLike> likes = new HashSet<>();
+    private List<UserLike> likes = new ArrayList<>();
 
 //    public static Travel fromRequest(TravelRequest travelRequest) {
 //        return Travel.builder()

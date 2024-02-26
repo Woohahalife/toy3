@@ -25,6 +25,7 @@ public class Trip extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private State state;
 
+    @Column(name = "posted_at")
     private LocalDateTime postedAt;
 
     @ManyToOne(fetch = FetchType.EAGER)

@@ -29,6 +29,7 @@ public interface TravelRepository extends JpaRepository<Travel, Long> {
             from Travel tv
             left join fetch tv.trip t
             left join fetch tv.likes l
+            left join fetch tv.comment c
             where tv.state = 'ACTIVE'
             and (t is null or t.state = 'ACTIVE')
             and l.member.id =:memberId
