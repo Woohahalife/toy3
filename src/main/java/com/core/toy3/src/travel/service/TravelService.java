@@ -74,7 +74,10 @@ public class TravelService {
     public List<TravelResponse> getAllTravel() {
 
         // state가 ACTIVE인 데이터만 조회
-        List<Travel> travelActive = travelRepository.getAllTravelActive();
+//        List<Travel> travelActive = travelRepository.getAllTravelActive();
+        List<Travel> travelActive = travelRepository.findAllWithTrips();
+        travelActive.addAll(travelRepository.findAllWithLikes());
+        travelActive.addAll(travelRepository.findAllWithComments());
 
         // Travel엔티티 list를 stream을 활용해 TravelResponse로 구성해서 리턴
         return travelActive.stream()

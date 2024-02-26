@@ -43,21 +43,21 @@ public class Travel extends BaseEntity {
     @Column(name = "arrival_time")
     private LocalDateTime arrivalTime;
 
-    @Builder.Default
-    @OneToMany(mappedBy = "travel", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    private List<Trip> trip = new ArrayList<>();
-
     @ManyToOne
     @JoinColumn(name="member_id")
     private Member member;
 
     @Builder.Default
-    @OneToMany(mappedBy = "travel", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    private List<Comment> comment = new ArrayList<>();
+    @OneToMany(mappedBy = "travel", cascade = CascadeType.REMOVE)
+    private Set<Trip> trip = new HashSet<>();
 
     @Builder.Default
-    @OneToMany(mappedBy = "travel")
-    private List<UserLike> likes = new ArrayList<>();
+    @OneToMany(mappedBy = "travel", cascade = CascadeType.REMOVE)
+    private Set<Comment> comment = new HashSet<>();
+
+    @Builder.Default
+    @OneToMany(mappedBy = "travel", cascade = CascadeType.REMOVE)
+    private Set<UserLike> likes = new HashSet<>();
 
 //    public static Travel fromRequest(TravelRequest travelRequest) {
 //        return Travel.builder()

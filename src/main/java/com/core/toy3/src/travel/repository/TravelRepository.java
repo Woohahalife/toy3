@@ -18,11 +18,37 @@ public interface TravelRepository extends JpaRepository<Travel, Long> {
             select tv
             from Travel tv
             left join fetch tv.trip t
+            left join fetch tv.likes l
+            left join fetch tv.comment c
             where tv.state = 'ACTIVE'
             and (t is null or t.state = 'ACTIVE')
             order by tv.id asc, t.postedAt asc
             """)
     List<Travel> getAllTravelActive();
+
+    @Query("""
+            SELECT DISTINCT tv
+            FROM Travel tv
+            LEFT JOIN FETCH tv.trip t
+            WHERE tv.state = 'ACTIVE'
+            """)
+    List<Travel> findAllWithTrips();
+
+    @Query("""
+            SELECT DISTINCT tv
+            FROM Travel tv
+            LEFT JOIN FETCH tv.likes l
+            WHERE tv.state = 'ACTIVE'
+            """)
+    List<Travel> findAllWithLikes();
+
+    @Query("""
+            SELECT DISTINCT tv
+            FROM Travel tv
+            LEFT JOIN FETCH tv.comment c
+            WHERE tv.state = 'ACTIVE'
+            """)
+    List<Travel> findAllWithComments();
 
     @Query("""
             select tv
@@ -40,6 +66,8 @@ public interface TravelRepository extends JpaRepository<Travel, Long> {
             select tv
             from Travel tv
             left join fetch tv.trip t
+            left join fetch tv.likes l
+            left join fetch tv.comment c
             where tv.id = :travel_id
             and tv.state = 'ACTIVE'
             and (t is null or t.state = 'ACTIVE')

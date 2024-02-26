@@ -32,6 +32,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(RuntimeException.class) // 서버-클라이언트 충돌시
     public ResponseEntity<Response> runtimeExceptionHandler(RuntimeException e) {
         log.error("[RuntimeException Occurs] error: {}", e.getMessage());
+
+        e.printStackTrace();
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body(Response.response(HttpStatus.CONFLICT.toString()));
     }
