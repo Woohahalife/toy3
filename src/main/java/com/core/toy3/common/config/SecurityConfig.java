@@ -35,7 +35,7 @@ public class SecurityConfig {
       .requestMatchers("/api/travel/**").authenticated() // 여행, 여정 api
       .requestMatchers("/api/trip/**").authenticated() // 여행, 여정 api
       .requestMatchers("/api/comment/**").authenticated() // 댓글 api
-      .requestMatchers(toH2Console()).permitAll() // h2 console 접근 가능
+//      .requestMatchers(toH2Console()).permitAll() // h2 console 접근 가능
       .anyRequest().permitAll())
 
             .headers(headers -> headers

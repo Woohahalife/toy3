@@ -17,25 +17,28 @@ springdoc:
 
 # H2-console 설정
 spring:
-  h2:
-    console:
-      enabled: true
   datasource:
-#    driver-class: org.h2.Driver
-#    database-platform: org.hibernate.dialect.H2Dialect
-    hikari:
-      jdbc-url: jdbc:h2:mem:testdb;DB_CLOSE_ON_EXIT=FALSE
+    url: jdbc:mysql://localhost:3307/traveldb
+    username: user
+    password: user1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     # sql 쿼리 콘솔 출력 허용
+    hibernate:
+        ddl-auto: create
+        naming:
+          physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     show_sql: true
     properties:
       hibernate:
-#        # SQL 쿼리에 주석을 추가하여 해당 쿼리가 어떤 Hibernate 쿼리에 해당하는지 식별
+        # SQL 쿼리에 주석을 추가하여 해당 쿼리가 어떤 Hibernate 쿼리에 해당하는지 식별
         use_sql_comments: false
         # 쿼리 포멧팅
         format_sql: true
         default_batch_fetch_size: 1000
     open-in-view: false
+
+
 
 # kakao map api
 kakao:
